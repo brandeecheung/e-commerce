@@ -4,7 +4,7 @@ const sequelize = require('../config/connection');
 
 class ProductTag extends Model {}
 
-ProductTag.init(
+ProductTag.init( 
   {
     // define columns
     id: {
@@ -34,7 +34,7 @@ ProductTag.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'product_tag',
+    modelName: 'product_tag', //check this line - related to error
   }
 );
 

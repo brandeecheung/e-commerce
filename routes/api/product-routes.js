@@ -7,19 +7,19 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
-    try {
-      const products = await Product.findAll({
-        include: [{ model: Category }, { model: Tag}],
-      });
-      if (!products) {
-        res.status(404).json({ message: 'No products found!' });
-        return;
-      }
-      res.status(200).json(products);
-    } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
+  try {
+    const products = await Product.findAll({
+      include: [{ model: Category }, { model: Tag, through: ProductTag } ],
+    });
+    if (!products) {
+      res.status(404).json({ message: 'No products found!' });
+      return;
     }
+    res.status(200).json(products);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 // get one product
@@ -34,27 +34,13 @@ router.get('/:id', async (req, res) => {
     }
     res.status(200).json(products);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
 
 // create new product
 router.post('/', async (req, res) => {
-  Book.update(
-    {
-      // All the fields you can update and the data attached to the request body.
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    },
-    {
-      // Gets the books based on the isbn given in the request parameters
-      where: {
-        products: req.params.products,
-      },
-    }
-  )
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -73,6 +59,7 @@ router.post('/', async (req, res) => {
             tag_id,
           };
         });
+        // ?????
         return ProductTag.bulkCreate(productTagIdArr);
       }
       // if no product tags, just respond
