@@ -10,6 +10,8 @@ The following animation shows the application's GET routes to return all categor
 
 [Video Link](https://drive.google.com/file/d/1Wp8bY-aJy6t6Ra5jga_wBhglkNYuxONZ/view)
 
+[Repository Link](https://github.com/brandeecheung/e-commerce)
+
 ## User Story
 
 ```md
